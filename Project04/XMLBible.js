@@ -121,8 +121,8 @@ function displayLexicon(lexiconID) {
     var descriptionString = "";
 
     //for every child
-    for (i = 0; i < descriptionXMLNode.childNodes.length; i++) {
-        var currentNode = descriptionXMLNode.childNodes[i];
+    for (k = 0; k < descriptionXMLNode.childNodes.length; k++) {
+        var currentNode = descriptionXMLNode.childNodes[k];
 
         //If we find text nodes, add the text to string
         if (currentNode.nodeType == Node.TEXT_NODE) {
@@ -247,18 +247,18 @@ function getVerse(Chapter, Verse, isStrongs) {
     //add space if not using strongs, there is no punctuation, and strongs was just used
     var previousUsedStrongs = false;
 
-    for (i = 0; i < ver.childNodes.length; i++) {
-        var currentHasPunctuation = /[,.?!\-:;'"]/.test(ver.childNodes[i].nodeValue);
+    for (k = 0; k < ver.childNodes.length; k++) {
+        var currentHasPunctuation = /[,.?!\-:;'"]/.test(ver.childNodes[k].nodeValue);
         if (!isStrongs && !currentHasPunctuation && previousUsedStrongs) {
             verseOutput += " ";
         }
 
         previousUsedStrongs = false;
-        var currentNode = ver.childNodes[i];
+        var currentNode = ver.childNodes[k];
 
         //If a text node, append text
         if (currentNode.nodeType == Node.TEXT_NODE) {
-            verseOutput += ver.childNodes[i].nodeValue;
+            verseOutput += ver.childNodes[k].nodeValue;
             verseOutput += " ";
         }
 
