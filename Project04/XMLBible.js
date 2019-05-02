@@ -58,6 +58,7 @@ function displayLexiconVerses(lexiconID) {
 
     //return to top
     verseDiv.scrollTop = 0;
+
     verseDiv.innerHTML = xmlString;
 }
 function displayLexicon(lexiconID) {
@@ -248,16 +249,16 @@ function getVerse(Chapter, Verse, isStrongs) {
     var previousUsedStrongs = false;
 
     for (k = 0; k < ver.childNodes.length; k++) {
-        var currentHasPunctuation = /[,.?!\-:;'"]/.test(ver.childNodes[k].nodeValue);
-        if (!isStrongs && !currentHasPunctuation && previousUsedStrongs) {
-            verseOutput += " ";
-        }
 
         previousUsedStrongs = false;
         var currentNode = ver.childNodes[k];
 
         //If a text node, append text
         if (currentNode.nodeType == Node.TEXT_NODE) {
+            var currentHasPunctuation = /[,.?!\-:;'"]/.test(ver.childNodes[k].nodeValue);
+            if (!isStrongs && !currentHasPunctuation && previousUsedStrongs) {
+                verseOutput += " ";
+            }
             verseOutput += ver.childNodes[k].nodeValue;
             verseOutput += " ";
         }
@@ -273,15 +274,16 @@ function getVerse(Chapter, Verse, isStrongs) {
 
             if (currentNode.nodeName == "strongs") {
                 previousUsedStrongs = true;
-
-                //if child node has a value check to see if ID - first letter matches. If so highlight, if not add
-                if (hasMatchingID(currentNode, currentStrongs.substr(1))) {
-                    verseOutput += "<span style='background: yellow;'>";
-                    verseOutput += currentNode.childNodes[0].nodeValue;
-                    verseOutput += "</span>";
-                }
-                else {
-                    verseOutput += currentNode.childNodes[0].nodeValue;
+                if (currentNode.childNodes.length > 0) {
+                    //if child node has a value check to see if ID - first letter matches. If so highlight, if not add
+                    if (hasMatchingID(currentNode, currentStrongs.substr(1))) {
+                        verseOutput += "<span style='background: yellow;'>";
+                        verseOutput += currentNode.childNodes[0].nodeValue;
+                        verseOutput += "</span>";
+                    }
+                    else {
+                        verseOutput += currentNode.childNodes[0].nodeValue;
+                    }
                 }
                 if (isStrongs) {
                     verseOutput += getStrongsFormat(currentNode);
@@ -305,14 +307,17 @@ function hasMatchingID(node, id) {
         letter = "H";
     }
 
-    if (node.hasAttribute("greek")) {
+    else if (node.hasAttribute("greek")) {
         ID = "greek";
         letter = "G";
     }
 
-    if (node.hasAttribute("number")) {
+    else if (node.hasAttribute("number")) {
         ID = "number";
         letter = "N";
+    }
+    else {
+        return false;
     }
     //replace with nothing (remove)
     var groupOfIDs = node.getAttribute(ID).replace('*', '');
@@ -390,7 +395,7 @@ function getStrongsLexicon(node) {
     var splitGroup = groupOfIDs.split(" ");
 
     for (var i = 0; i < splitGroup.length; i++) {
-        returnString += "<i onclic=\"displayLexicon('" + splitGroup[i] + "'); \"><font color=" + color + " class='strongsNumbers'>";
+        returnString += "<i onclick=\"displayLexicon('" + splitGroup[i] + "'); \"><font color=" + color + " class='strongsNumbers'>";
         returnString += splitGroup[i];
         returnString += "</font></i>";
     }
