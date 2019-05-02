@@ -18,6 +18,10 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="XMLBible.html" />
+    <None Include="XMLBible.js" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{A23B7CBA-CF13-4F19-B446-A00F7E6749A7}</ProjectGuid>
