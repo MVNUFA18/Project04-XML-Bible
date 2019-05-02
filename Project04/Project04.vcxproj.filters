@@ -21,5 +21,11 @@
     <None Include="XMLBible.js">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="BibleStyle.css">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="Makefile">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

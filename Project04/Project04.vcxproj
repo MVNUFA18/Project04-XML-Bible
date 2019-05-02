@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <None Include="BibleStyle.css" />
+    <None Include="Makefile" />
     <None Include="XMLBible.html" />
     <None Include="XMLBible.js" />
   </ItemGroup>

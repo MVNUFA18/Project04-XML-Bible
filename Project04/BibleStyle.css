@@ -1,0 +1,22 @@
+.lexiconRef:hover, .strongsNumbers:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+td {
+    padding: 0 15px 0 15px;
+}
+
+
+.lexiconRef {
+    font-size: 14px;
+    font-style: normal;
+    color: green;
+    text-indent: 1em;
+}
+
+.bibleInput, .biblestyle {
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 4px;
+}
