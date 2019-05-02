@@ -12,7 +12,7 @@ function setup() {
     lexiconVerses = "/class/csc3004/XMLBible/bible_refs_of_strong_numbers/";
 
     lexiconDiv = document.getElementById("lexiconDiv");
-    verseDiv = document.getElementByID("verseDiv")
+    verseDiv = document.getElementById("verseDiv")
 
     //used to highlight verse HTML
     currentStrongs = "H-1";
@@ -150,14 +150,14 @@ function displayLexicon(lexiconID) {
 
 function getResponse() {
     //Start by reading the input and storing it in vars
-    var useStrongs = document.getElementByID('useStrongs').checked;
-    var Book = document.getElementByID('book').value;
+    var useStrongs = document.getElementById('useStrongs').checked;
+    var Book = document.getElementById('book').value;
     var Chapter = document.getElementById('chapter').value;
     var Verse = parseInt(document.getElementById('verse').value);
     var NumberOfVerses = parseInt(document.getElementById('num_verses').value);
 
     var XMLBook = biblePath + Book + ".xml";
-    xmlhttp.open("GET", XMLBook, false);
+    xmlhttp.open("GET",XMLBook,false);
     xmlhttp.send();
     xmlDoc = xmlhttp.responseXML;
 
@@ -176,7 +176,7 @@ function getResponse() {
 
             //chapter header
             if (previousChapter != currentChapter) {
-                responseString += "<h3>" + xmlDoc.getElementsByTagName("book")[0].getAttribute("name") + " " + (currentChapter) + "</h3>";
+                responseString += "<h3>" + xmlDoc.getElementsByTagName("book")[0].getAttribute("name") + " " + currentChapter + "</h3>";
                 previousChapter = currentChapter;
             }
 
@@ -227,16 +227,16 @@ function getResponse() {
     document.all.responseArea.innerHTML = responseString;
 }
 
-function getVerse(chapter, verse, useStrongs) {
+function getVerse(Chapter, Verse, UseStrongs) {
     var verseOutput = "";
 
     //Check that chapter exists
-    var chap = xmlDoc.getElementsByTagName("chapter")[chapter - 1];
+    var chap = xmlDoc.getElementsByTagName("chapter")[Chapter - 1];
     if (chap == null) {
         throw "NO CHAPTER";
     }
 
-    var ver = chap.getElementsByTagName("verse")[verse - 1];
+    var ver = chap.getElementsByTagName("verse")[Verse - 1];
     if (ver == null) {
         throw "NO VERSE";
     }
