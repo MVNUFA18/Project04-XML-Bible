@@ -43,8 +43,8 @@ function displayLexiconVerses(lexiconID) {
 
     for (var i = 0; i < xmlNodes.length; i++) {
         var currentNode = xmlNodes[i];
-        var bookNumber = currentNode.getAttribute("version");
-        var book = document.getElementById("book").options[bookNumber - 1].text;
+        var bookNumber = currentNode.getAttribute("b");
+        var book = document.getElementById("book").options[bookNumber-1].text;
         var chapter = currentNode.getAttribute("chapter");
         var verse = currentNode.getAttribute("verse");
 
@@ -71,18 +71,16 @@ function displayLexicon(lexiconID) {
     var isHeb = false;
 
     //First character identifies: H or G
-    if (letterID.charAt(0) == 'H') {
+    if (letterID.charAt(0) == 'H') 
         isHeb = true;
-    }
-    if (letterID.charAt(0) == 'G') {
+    if (letterID.charAt(0) == 'G') 
         isHeb = false;
-    }
 
     //Now that we've used the lexiconID to determine Hebrew/Greek, replace letters with empty space (remove letter)
     lexiconID = letterID.substr(1);
 
-    //Construct a string using isHeb flag to determine if greek or hebrew; cut ID down to get a proper index - works bc we removed letters
-    lexiconLanguage = (isHeb ? "heb_strongs/" : "greek_strongs/") + (isHeb ? "heb" : "grk") + Math.floor(lexiconID / 100) + ".xml";
+    //Construct a string using isHeb flag to determine if greek or hebrew; cut ID down to get a proper index.
+    lexiconLanguage = (isHeb ? "heb_strongs" : "greek_strongs") + "/" + (isHeb ? "heb" : "grk") + Math.floor((lexiconID-1)/100) + ".xml";
     //Append the completed lexiconLanguage string to path, set XMLLexicon equal to this
     var XMLLexicon = lexiconPath + lexiconLanguage;
     xmlhttp.open("GET", XMLLexicon, false);
@@ -93,32 +91,32 @@ function displayLexicon(lexiconID) {
     ////We will need the H or G back, use isHeb flag from earlier - then we can get the element by this ID
     //var lexID = (isHeb ? "H" : "G") + lexiconID;
 
-    var responseNode = response.getElementById(letterID);
+    var node = response.getElementById(letterID);
 
     //Title
     var titleNode = document.createElement("H1");
-    titleNode.innerHTML = responseNode.getElementsByTagName("title")[0].innerHTML;
+    titleNode.innerHTML = node.getElementsByTagName("title")[0].innerHTML;
     lexiconDiv.appendChild(titleNode);
 
     //ID
     var idNode = document.createElement("H4");
-    idNode.innerHTML = responseNode.getElementsByTagName("strong_id")[0].innerHTML;
+    idNode.innerHTML = node.getElementsByTagName("strong_id")[0].innerHTML;
     lexiconDiv.appendChild(idNode);
 
     //Transliteration
     var translitNode = document.createElement("H3");
-    translitNode.innerHTML = responseNode.getElementsByTagName("transliteration")[0].innerHTML;
+    translitNode.innerHTML = node.getElementsByTagName("transliteration")[0].innerHTML;
     lexiconDiv.appendChild(translitNode);
 
     //Pronunciation
     var pronunciationNode = document.createElement("H4");
     //Wrap in italix
-    pronunciationNode.innerHTML = "<i>" + responseNode.getElementsByTagName("pronunciation")[0].children[0].innerHTML + "</i>";
+    pronunciationNode.innerHTML = "<i>" + node.getElementsByTagName("pronunciation")[0].children[0].innerHTML + "</i>";
     lexiconDiv.appendChild(pronunciationNode);
 
     //Description
     var descriptionNode = document.createElement("P");
-    var descriptionXMLNode = responseNode.getElementsByTagName("description")[0];
+    var descriptionXMLNode = node.getElementsByTagName("description")[0];
 
     var descriptionString = "";
 
@@ -151,7 +149,7 @@ function displayLexicon(lexiconID) {
 
 function getResponse() {
     //Start by reading the input and storing it in vars
-    var useStrongs = document.getElementById('useStrongs').checked;
+    var isStrongs = document.getElementById('useStrongs').checked;
     var Book = document.getElementById('book').value;
     var Chapter = document.getElementById('chapter').value;
     var Verse = parseInt(document.getElementById('verse').value);
@@ -173,7 +171,7 @@ function getResponse() {
 
         try {
             //grab next verse and append it to response
-            verseText = getVerse(currentChapter, currentVerse, useStrongs);
+            verseText = getVerse(currentChapter, currentVerse, isStrongs);
 
             //chapter header
             if (previousChapter != currentChapter) {
@@ -228,7 +226,7 @@ function getResponse() {
     document.all.responseArea.innerHTML = responseString;
 }
 
-function getVerse(Chapter, Verse, UseStrongs) {
+function getVerse(Chapter, Verse, isStrongs) {
     var verseOutput = "";
 
     //Check that chapter exists
@@ -251,7 +249,7 @@ function getVerse(Chapter, Verse, UseStrongs) {
 
     for (i = 0; i < ver.childNodes.length; i++) {
         var currentHasPunctuation = /[,.?!\-:;'"]/.test(ver.childNodes[i].nodeValue);
-        if (!useStrongs && !currentHasPunctuation && previousUsedStrongs) {
+        if (!isStrongs && !currentHasPunctuation && previousUsedStrongs) {
             verseOutput += " ";
         }
 
@@ -285,7 +283,7 @@ function getVerse(Chapter, Verse, UseStrongs) {
                 else {
                     verseOutput += currentNode.childNodes[0].nodeValue;
                 }
-                if (useStrongs) {
+                if (isStrongs) {
                     verseOutput += getStrongsFormat(currentNode);
                 }
             }
@@ -293,7 +291,7 @@ function getVerse(Chapter, Verse, UseStrongs) {
 
     }
     //reset global flag
-    currentStrongsID = "H-1";
+    currentStrongs = "H-1";
 
     return (verseOutput);
 }
