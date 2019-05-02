@@ -28,6 +28,7 @@
                 <TR>
                     <TD style="color:#87C232" ALIGN=CENTER VALIGN=TOP>Book</TD>
                     <TD style="color:#87C232" ALIGN=CENTER VALIGN=TOP>Chapter</TD>
+                    <TD>|</TD>
                     <TD style="color:#87C232" ALIGN=CENTER VALIGN=TOP>Verse</TD>
                     <TD style="color:#87C232" ALIGN=CENTER VALIGN=TOP>Number of Verses</TD>
                 </TR>
@@ -103,19 +104,20 @@
                         </select>
                     </TD>
                     <TD ALIGN=LEFT VALIGN=TOP>
-                        <INPUT NAME="chapter" MAXLENGTH=3 class="input" id="chapter">
+                        <INPUT NAME="chapter" TYPE="number" MAXLENGTH=3 class="bibleInput" id="chapter">
+                    </TD>
+                    <TD>|</TD>
+                    <TD ALIGN=LEFT VALIGN=TOP>
+                        <INPUT NAME="verse" TYPE="number" MAXLENGTH=3 class="bibleInput" id="verse">
                     </TD>
                     <TD ALIGN=LEFT VALIGN=TOP>
-                        <INPUT NAME="verse" MAXLENGTH=3 class="input" id="verse">
-                    </TD>
-                    <TD ALIGN=LEFT VALIGN=TOP>
-                        <INPUT NAME="num_verses" class="input" id="num_verses">
+                        <INPUT NAME="num_verses" TYPE="number" class="bibleInput" id="num_verses">
                     </TD>
                 </TR>
             </TABLE>
 
             <p>
-                <input type="submit" style = "position: absolute; left: 26%; top: 30%; height: 3%; width: 6%;"onclick="javascript: getResponse()" name="submit" value="Submit" class="button" />
+                <input type="submit" style = "position: absolute; left: 27%; top: 30%; height: 3%; width: 6%;"onclick="javascript: getResponse()" name="submit" value="Submit" class="button" />
             </p>
             </div>
         </div>
