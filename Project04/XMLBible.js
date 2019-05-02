@@ -12,7 +12,7 @@ function setup() {
     lexiconVerses = "/class/csc3004/XMLBible/bible_refs_of_strong_numbers/";
 
     lexiconDiv = document.getElementById("lexiconDiv");
-    verseDiv = document.getElementById("verseDiv")
+    verseDiv = document.getElementById("verseDiv");
 
     //used to highlight verse HTML
     currentStrongs = "H-1";
@@ -38,6 +38,7 @@ function displayLexiconVerses(lexiconID) {
     var response = xmlhttp.responseXML;
 
     var xmlNodes = response.children[0].querySelectorAll('[number="' + lexiconID.substr(1) + '"]')[0].childNodes;
+
     var xmlString = "";
 
     for (var i = 0; i < xmlNodes.length; i++) {
@@ -105,7 +106,7 @@ function displayLexicon(lexiconID) {
     lexiconDiv.appendChild(idNode);
 
     //Transliteration
-    var translitNode = document.createelement("H3");
+    var translitNode = document.createElement("H3");
     translitNode.innerHTML = responseNode.getElementsByTagName("transliteration")[0].innerHTML;
     lexiconDiv.appendChild(translitNode);
 
@@ -249,7 +250,7 @@ function getVerse(Chapter, Verse, UseStrongs) {
     var previousUsedStrongs = false;
 
     for (i = 0; i < ver.childNodes.length; i++) {
-        var currentHasPunctuation = /[,.?!\-:;'"]/.test(ver.childNodes[j].nodeValue);
+        var currentHasPunctuation = /[,.?!\-:;'"]/.test(ver.childNodes[i].nodeValue);
         if (!useStrongs && !currentHasPunctuation && previousUsedStrongs) {
             verseOutput += " ";
         }
@@ -329,9 +330,9 @@ function hasMatchingID(node, id) {
     return false;
 }
 
-var HEBREW_COLOR = "green";
-var GREEK_COLOR = "red";
-var NUMBER_COLOR = "blue";
+var HEBREW_COLOR = "#87C232";
+var GREEK_COLOR = "cyan";
+var NUMBER_COLOR = "white";
 
 //Use similar format to above function
 function getStrongsFormat(node) {
@@ -366,7 +367,7 @@ function getStrongsFormat(node) {
     var splitGroup = groupOfIDs.split(" ");
 
     for (var i = 0; i < splitGroup.length; i++) {
-        returnString += "<i><font-size=2 color=" + color + "><sub class='strongsNumbers' onclick=\"displayLexicon('" + letter + splitGroup[i] + "')\">";
+        returnString += "<i><font-size=2; color=" + color + "><sub class='strongsNumbers' onclick=\"displayLexicon('" + letter + splitGroup[i] + "')\">";
         returnString += splitGroup[i];
         returnString += "</sub></font></i> ";
     }
