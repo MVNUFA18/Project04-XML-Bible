@@ -9,7 +9,7 @@ function setup() {
     // that hosts this web page to avoid Cross-Domain request restrictions
     biblePath = "/class/csc3004/XMLBible/kjv_by_book/";
     lexiconPath = "/class/csc3004/XMLBible/";
-    lexiconVerses = "/class/csc3004/XMLBible/bible_refs_of_strong_numbers/";
+    lexiconVerses = "/class/csc3004/XMLBible/bible_refs_of_strongs_numbers/";
 
     lexiconDiv = document.getElementById("lexiconDiv");
     verseDiv = document.getElementById("verseDiv");
@@ -45,8 +45,8 @@ function displayLexiconVerses(lexiconID) {
         var currentNode = xmlNodes[i];
         var bookNumber = currentNode.getAttribute("b");
         var book = document.getElementById("book").options[bookNumber-1].text;
-        var chapter = currentNode.getAttribute("chapter");
-        var verse = currentNode.getAttribute("verse");
+        var chapter = currentNode.getAttribute("ch");
+        var verse = currentNode.getAttribute("v");
 
         xmlString += "<p class='lexiconRef' onclick=\"currentStrongs = '" + lexiconID + "'; displayFormInputs(" + bookNumber + "," + chapter + "," + verse + ",1);  \">" + book + " " + chapter + ":" + verse + "</p>";
     }

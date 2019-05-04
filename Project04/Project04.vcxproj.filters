@@ -28,4 +28,12 @@
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="bible_refs_by_strongs_num_nt.xml">
+      <Filter>Source Files</Filter>
+    </Xml>
+    <Xml Include="bible_refs_by_strongs_num_ot.xml">
+      <Filter>Source Files</Filter>
+    </Xml>
+  </ItemGroup>
 </Project>
